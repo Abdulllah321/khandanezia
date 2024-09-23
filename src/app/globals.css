@@ -2,26 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Theme Colors */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f9fafb; /* Soft white */
+  --foreground: #2e384d;
+  --primary: #4f46e5; /* Indigo blue */
+  --secondary: #22d3ee; /* Cyan */
+  --accent: #facc15; /* Yellow */
+  --muted: #64748b; /* Cool gray */
+  --gradient-start: #ffffff; /* Soft white for light mode */
+  --gradient-end: #e5e7eb; /* Light gray for light mode */
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  background-image: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  background-attachment: fixed;
+  background-size: cover;
 }
 
+/* Custom Components */
+@layer components {
+  /* Gradient Button */
+  .btn-gradient {
+    @apply px-4 py-2 font-semibold text-white transition duration-300 rounded-lg shadow-md bg-gradient-to-r from-purple-400 via-indigo-500 to-blue-600 hover:from-purple-600 hover:to-blue-700;
+  }
+
+  /* Card with subtle shadow */
+  .card {
+    @apply p-6 bg-white rounded-lg shadow-lg dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700;
+    background: var(--background);
+    border: 1px solid var(--muted);
+  }
+
+  /* Subtle floating label */
+  .input-floating {
+    @apply block w-full px-3 py-2 text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 dark:text-gray-100 dark:border-gray-600 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-300 peer;
+  }
+}
+
+/* Custom Utility Classes */
 @layer utilities {
+  /* Utility for text wrapping balance */
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Full-screen height for sections */
+  .full-height {
+    height: 100vh;
+  }
+
+  /* Subtle shadow on hover */
+  .hover-shadow {
+    transition: all 0.2s ease-in-out;
+  }
+  .hover-shadow:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Responsive typography */
+  .heading-lg {
+    @apply text-3xl font-bold text-gray-900 dark:text-gray-100;
+  }
+  .text-muted {
+    @apply text-gray-500 dark:text-gray-400;
   }
 }

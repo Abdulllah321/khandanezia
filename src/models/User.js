@@ -94,9 +94,16 @@ const userSchema = new Schema(
     },
     secretKey: {
       type: String,
-      default: () => Math.random().toString(36).substr(2, 9),
+      default: function () {
+        const firstPart = this.firstName.substring(0, 2).toUpperCase(); // First 2 letters of first name
+        const secondPart = this.lastName.substring(0, 2).toUpperCase(); // First 2 letters of last name
+        const randomNumbers = Math.floor(1000 + Math.random() * 9000); // 4 random digits
+
+        return `${firstPart}${secondPart}-${randomNumbers}`;
+      },
       unique: true,
     },
+
     education: [
       {
         schoolName: String,
@@ -186,4 +193,6 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+
+export default User;
